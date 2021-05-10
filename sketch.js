@@ -7,9 +7,6 @@ var activeWeapon;
 var getframecount;
 
 
-
-
-
 function preload(){
   
 mermaidImg1 = loadImage("img1.png");
@@ -271,21 +268,29 @@ function chooseWeapon(){
    gun1.x = mermaid1.x - 30;
    gun1.y = mermaid1.y;
    gun1.scale = 0.5;
+
    gun2.x =160;
     gun2.y = 120;
+
      gun3.x = 220;
       gun3.y = 120; 
+
       gun4.x = 260; 
       gun4.y = 120;
+
       gun5.x = mermaid2.x+30;
       gun5.y = mermaid2.y;
       gun5.scale = 0.5
+
       gun6.x =160;
       gun6.y = 120;
+
        gun7.x = 220;
-        gun7.y = 120; 
+        gun7.y = 120
+        ; 
         gun8.x = 260; 
         gun8.y = 120;
+
         activeWeapon = 1;
 
       
@@ -384,6 +389,8 @@ function createLasers(){
 
  }
  if(frameCount>=getframecount+60 && activeWeapon === 1 ){
+  gun1.velocityY = 0
+  gun5.velocityY = 0
    gun1.x = mermaid1.x-30
    gun1.y = mermaid1.y;
 
@@ -398,6 +405,8 @@ function createLasers(){
 
 }
 if(frameCount>=getframecount+60 && activeWeapon === 2){
+  gun2.velocityY = 0
+  gun6.velocityY = 0;
   gun2.x = mermaid1.x-30
   gun2.y = mermaid1.y;
 
@@ -411,7 +420,8 @@ if(keyDown("space") && activeWeapon === 3){
 
 }
 if(frameCount>=getframecount+60 && activeWeapon === 3 ){
-  
+  gun3.velocityY = 0;
+  gun7.velocityY = 0;
   gun3.x = mermaid1.x-30
   gun3.y = mermaid1.y;
 
@@ -425,6 +435,8 @@ if(keyDown("space") && activeWeapon === 4){
 
 }
 if(frameCount>=getframecount+60  && activeWeapon === 4){
+  gun4.velocityY = 0;
+  gun8.velocityY = 0
   gun4.x = mermaid1.x-30
   gun4.y = mermaid1.y;
 
