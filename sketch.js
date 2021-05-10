@@ -5,6 +5,7 @@ var gameState,score;
 var img;
 var activeWeapon;
 var getframecount;
+var mermaidPos;
 
 
 function preload(){
@@ -76,15 +77,29 @@ gun8.scale = 0.5
 gameState = "start";
 
 spaceCraftGroup = new Group();
+weaponGroup = new Group();
+
+weaponGroup.add(gun1)
+weaponGroup.add(gun2)
+weaponGroup.add(gun3)
+weaponGroup.add(gun4)
+weaponGroup.add(gun5)
+weaponGroup.add(gun6)
+weaponGroup.add(gun7)
+weaponGroup.add(gun8)
+
+
+
 
 activeWeapon = 0
+score = 0;
+mermaidPos = 0;
 
 
 
 }
 
 function draw(){
-background(backgroundImg);
 
 if(gameState === "start"){
   background("black")
@@ -197,11 +212,14 @@ if(gameState === "start"){
 
 if(gameState === "play"){
 
+  background(backgroundImg);
+
   if(keyDown(RIGHT_ARROW)){
     mermaid1.x = 650;
     mermaid1.y = 400;
     mermaid2.x = 550;
     mermaid2.y = 400;
+    mermaidPos = 2
   }
   
   if(keyDown(UP_ARROW)){
@@ -209,13 +227,45 @@ if(gameState === "play"){
     mermaid1.y = 350;
     mermaid2.x = 600;
     mermaid2.y = 450;
+    mermaidPos = 1
   }
   spawnSpaceCrafts();
 
   createLasers();
   
   chooseWeapon();
+
+  if(weaponGroup.isTouching(spaceCraftGroup)){
+    spaceCraftGroup.destroyEach();
+    score = score+1;
+  }
+
+  if(spaceCraftGroup.isTouching(Aquaria)){
+    gameState = "end";
+  }
+
+
+
+  
+
   drawSprites();
+
+  if(gameState === "end"){
+    background("black");
+    spaceCraftGroup.destroyEach();
+    weaponGroup.destroyEach();
+    Aquaria.destroy();
+    mermaid1.destroy();
+    mermaid2.destroy();
+    
+  }
+
+  textSize(30);
+  stroke("white")
+  fill("white");
+  text("score: "+score,750,50);
+
+  
 }
 
 
@@ -258,8 +308,9 @@ function spawnSpaceCrafts(){
       spaceCraft.addImage(spaceshipImg2);
       spaceCraft.scale = 0.7;
     }
+    spaceCraftGroup.add(spaceCraft);
   }
-  //spaceCraftGroup.add(spaceCraft);
+ 
 }
 
 function chooseWeapon(){
@@ -382,15 +433,25 @@ function chooseWeapon(){
 
 function createLasers(){
 
- if(keyDown("space") && activeWeapon === 1){
+ if(keyDown("space") && activeWeapon === 1 ){
    getframecount=frameCount;
+
+   if(mermaidPos === 1){
    gun1.velocityY = -5;
    gun5.velocityY = 5;
+   }
+   else if(mermaidPos === 2){
+    gun1.velocityX = -5;
+    gun5.velocityX = 5;
+    }
 
  }
  if(frameCount>=getframecount+60 && activeWeapon === 1 ){
   gun1.velocityY = 0
   gun5.velocityY = 0
+  gun1.velocityX = 0
+  gun5.velocityX = 0
+
    gun1.x = mermaid1.x-30
    gun1.y = mermaid1.y;
 
@@ -400,13 +461,24 @@ function createLasers(){
 
  if(keyDown("space") && activeWeapon === 2){
   getframecount=frameCount;
-  gun2.velocityY = -5;
-  gun6.velocityY = 5;
+  
+  if(mermaidPos === 1){
+    gun2.velocityY = -5;
+    gun6.velocityY = 5;
+    }
+    else if(mermaidPos === 2){
+     gun2.velocityX = -5;
+     gun6.velocityX = 5;
+     }
+ 
 
 }
 if(frameCount>=getframecount+60 && activeWeapon === 2){
   gun2.velocityY = 0
   gun6.velocityY = 0;
+  gun2.velocityX = 0
+  gun6.velocityX = 0;
+
   gun2.x = mermaid1.x-30
   gun2.y = mermaid1.y;
 
@@ -415,13 +487,23 @@ if(frameCount>=getframecount+60 && activeWeapon === 2){
 }
 if(keyDown("space") && activeWeapon === 3){
   getframecount=frameCount;
-  gun3.velocityY = -5;
-  gun7.velocityY = 5;
+
+  if(mermaidPos === 1){
+    gun3.velocityY = -5;
+    gun7.velocityY = 5;
+    }
+    else if(mermaidPos === 2){
+     gun3.velocityX = -5;
+     gun7.velocityX = 5;
+     }
 
 }
 if(frameCount>=getframecount+60 && activeWeapon === 3 ){
   gun3.velocityY = 0;
   gun7.velocityY = 0;
+  gun3.velocityX = 0;
+  gun7.velocityX = 0;
+
   gun3.x = mermaid1.x-30
   gun3.y = mermaid1.y;
 
@@ -430,13 +512,23 @@ if(frameCount>=getframecount+60 && activeWeapon === 3 ){
 }
 if(keyDown("space") && activeWeapon === 4){
   getframecount=frameCount;
-  gun4.velocityY = -5;
-  gun8.velocityY = 5;
+
+  if(mermaidPos === 1){
+    gun4.velocityY = -5;
+    gun8.velocityY = 5;
+    }
+    else if(mermaidPos === 2){
+     gun4.velocityX = -5;
+     gun8.velocityX = 5;
+     }
 
 }
 if(frameCount>=getframecount+60  && activeWeapon === 4){
   gun4.velocityY = 0;
   gun8.velocityY = 0
+  gun4.velocityX = 0;
+  gun8.velocityX = 0
+
   gun4.x = mermaid1.x-30
   gun4.y = mermaid1.y;
 
@@ -445,6 +537,8 @@ if(frameCount>=getframecount+60  && activeWeapon === 4){
 }
 
 }
+
+
 
 
 
