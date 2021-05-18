@@ -16,6 +16,8 @@ mermaidImg2 = loadImage("img2.png")
 backgroundImg = loadImage("universeImg3.jpg");
 aquariaImg = loadImage("planet.png");
 gunImg1 = loadImage("swordImg.png");
+rotatedgunImg1 = loadImage("rotatedsword1.png");
+rotatedgunImg2 = loadImage("rotatedswordimage2.png");
 gunImg2 = loadImage("tridentImg.png");
 gunImg3 = loadImage("sword2.png");
 gunImg4 = loadImage("magicBall.png");
@@ -93,7 +95,7 @@ weaponGroup.add(gun8)
 
 activeWeapon = 0
 score = 0;
-mermaidPos = 0;
+mermaidPos = 1;
 
 
 
@@ -273,7 +275,7 @@ if(gameState === "play"){
 }
 
 function spawnSpaceCrafts(){
-  if(frameCount%150===0){
+  if(frameCount%200===0){
     spaceCraft = createSprite(100,100,100,100);
 
     var position = Math.round(random(1,4));
@@ -436,11 +438,15 @@ function createLasers(){
  if(keyDown("space") && activeWeapon === 1 ){
    getframecount=frameCount;
 
-   if(mermaidPos === 1){
+   if(mermaidPos === 1 ){
+    gun1.addImage(gunImg1);
+    gun5.addImage(gunImg1);
    gun1.velocityY = -5;
    gun5.velocityY = 5;
    }
    else if(mermaidPos === 2){
+    gun1.addImage(rotatedgunImg1);
+    gun5.addImage(rotatedgunImg2);
     gun1.velocityX = -5;
     gun5.velocityX = 5;
     }
@@ -527,7 +533,7 @@ if(frameCount>=getframecount+60  && activeWeapon === 4){
   gun4.velocityY = 0;
   gun8.velocityY = 0
   gun4.velocityX = 0;
-  gun8.velocityX = 0
+  gun8.velocityX = 0;
 
   gun4.x = mermaid1.x-30
   gun4.y = mermaid1.y;
